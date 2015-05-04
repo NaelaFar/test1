@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ChangeLogs">
+    <Key>
+      <PropertyRef Name="ChangeLogId" />
+    </Key>
+    <Property Name="ChangeLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostInfo" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="ChangeDateTime" Type="datetime" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestReservationResources">
+    <Key>
+      <PropertyRef Name="RequestReservationResourcesId" />
+    </Key>
+    <Property Name="RequestReservationResourcesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Request_RequestId" Type="int" Nullable="false" />
+    <Property Name="Resource_ResourceId" Type="int" Nullable="false" />
+    <Property Name="Reservation_ReservationId" Type="int" />
+    <Property Name="ResourceQuantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Requests">
+    <Key>
+      <PropertyRef Name="RequestId" />
+    </Key>
+    <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoomType_RoomTypeId" Type="int" Nullable="false" />
+    <Property Name="City_CityId" Type="int" Nullable="false" />
+    <Property Name="RequestTime" Type="datetime" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="QuantityPersons" Type="int" Nullable="false" />
+    <Property Name="SizeArea" Type="int" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="Reserved" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reservations">
+    <Key>
+      <PropertyRef Name="ReservationId" />
+    </Key>
+    <Property Name="ReservationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Request_RequestId" Type="int" Nullable="false" />
+    <Property Name="User_CustomerId" Type="int" Nullable="false" />
+    <Property Name="User_HandlerId" Type="int" Nullable="false" />
+    <Property Name="Room_RoomId" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Resources">
+    <Key>
+      <PropertyRef Name="ResourceId" />
+    </Key>
+    <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="ResourceName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="RoomId" />
+    </Key>
+    <Property Name="RoomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoomTypeRoomTypeId" Type="int" Nullable="false" />
+    <Property Name="City_CityId" Type="int" Nullable="false" />
+    <Property Name="AreaSize" Type="int" Nullable="false" />
+    <Property Name="StreetAddress" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="PreparationTime" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoomTypes">
+    <Key>
+      <PropertyRef Name="RoomTypeId" />
+    </Key>
+    <Property Name="RoomTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="UserRoleId" />
+    </Key>
+    <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserRole" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserRole_UserRoleId" Type="int" Nullable="false" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="UserRoleId" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+    <Property Name="TelNo" Type="varchar" MaxLength="30" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="30" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_RequestCity">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+    <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="City_CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestReservation">
+    <End Role="Requests" Type="Self.Requests" Multiplicity="1" />
+    <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requests">
+        <PropertyRef Name="RequestId" />
+      </Principal>
+      <Dependent Role="Reservations">
+        <PropertyRef Name="Request_RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestReservationResources_Requests">
+    <End Role="Requests" Type="Self.Requests" Multiplicity="1" />
+    <End Role="RequestReservationResources" Type="Self.RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requests">
+        <PropertyRef Name="RequestId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Request_RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestReservationResources_Reservations">
+    <End Role="Reservations" Type="Self.Reservations" Multiplicity="0..1" />
+    <End Role="RequestReservationResources" Type="Self.RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reservations">
+        <PropertyRef Name="ReservationId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Reservation_ReservationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestResourceRow">
+    <End Role="Requests" Type="Self.Requests" Multiplicity="1" />
+    <End Role="RequestReservationResources" Type="Self.RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requests">
+        <PropertyRef Name="RequestId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Request_RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestRoomType">
+    <End Role="RoomTypes" Type="Self.RoomTypes" Multiplicity="1" />
+    <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoomTypes">
+        <PropertyRef Name="RoomTypeId" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="RoomType_RoomTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReservationUser">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Reservations">
+        <PropertyRef Name="User_CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ResourceRowResource">
+    <End Role="Resources" Type="Self.Resources" Multiplicity="1" />
+    <End Role="RequestReservationResources" Type="Self.RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Resources">
+        <PropertyRef Name="ResourceId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Resource_ResourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomCity">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="City_CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomTypeRoom">
+    <End Role="RoomTypes" Type="Self.RoomTypes" Multiplicity="1" />
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoomTypes">
+        <PropertyRef Name="RoomTypeId" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="RoomTypeRoomTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUserRole">
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRoles">
+        <PropertyRef Name="UserRoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="UserRole_UserRoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBModelStoreContainer">
+    <EntitySet Name="ChangeLogs" EntityType="Self.ChangeLogs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestReservationResources" EntityType="Self.RequestReservationResources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resources" EntityType="Self.Resources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoomTypes" EntityType="Self.RoomTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_RequestCity" Association="Self.FK_RequestCity">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestReservation" Association="Self.FK_RequestReservation">
+      <End Role="Requests" EntitySet="Requests" />
+      <End Role="Reservations" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestReservationResources_Requests" Association="Self.FK_RequestReservationResources_Requests">
+      <End Role="Requests" EntitySet="Requests" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestReservationResources_Reservations" Association="Self.FK_RequestReservationResources_Reservations">
+      <End Role="Reservations" EntitySet="Reservations" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestResourceRow" Association="Self.FK_RequestResourceRow">
+      <End Role="Requests" EntitySet="Requests" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestRoomType" Association="Self.FK_RequestRoomType">
+      <End Role="RoomTypes" EntitySet="RoomTypes" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReservationUser" Association="Self.FK_ReservationUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reservations" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ResourceRowResource" Association="Self.FK_ResourceRowResource">
+      <End Role="Resources" EntitySet="Resources" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomCity" Association="Self.FK_RoomCity">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomTypeRoom" Association="Self.FK_RoomTypeRoom">
+      <End Role="RoomTypes" EntitySet="RoomTypes" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUserRole" Association="Self.FK_UserUserRole">
+      <End Role="UserRoles" EntitySet="UserRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

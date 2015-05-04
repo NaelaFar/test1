@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="DBModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChangeLogs" EntityType="DBModel.ChangeLogs" />
+    <EntitySet Name="Cities" EntityType="DBModel.Cities" />
+    <EntitySet Name="RequestReservationResources" EntityType="DBModel.RequestReservationResources" />
+    <EntitySet Name="Requests" EntityType="DBModel.Requests" />
+    <EntitySet Name="Reservations" EntityType="DBModel.Reservations" />
+    <EntitySet Name="Resources" EntityType="DBModel.Resources" />
+    <EntitySet Name="Rooms" EntityType="DBModel.Rooms" />
+    <EntitySet Name="RoomTypes" EntityType="DBModel.RoomTypes" />
+    <EntitySet Name="sysdiagrams" EntityType="DBModel.sysdiagrams" />
+    <EntitySet Name="UserRoles" EntityType="DBModel.UserRoles" />
+    <EntitySet Name="Users" EntityType="DBModel.Users" />
+    <AssociationSet Name="FK_RequestCity" Association="DBModel.FK_RequestCity">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomCity" Association="DBModel.FK_RoomCity">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestReservationResources_Requests" Association="DBModel.FK_RequestReservationResources_Requests">
+      <End Role="Requests" EntitySet="Requests" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestReservationResources_Reservations" Association="DBModel.FK_RequestReservationResources_Reservations">
+      <End Role="Reservations" EntitySet="Reservations" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestResourceRow" Association="DBModel.FK_RequestResourceRow">
+      <End Role="Requests" EntitySet="Requests" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ResourceRowResource" Association="DBModel.FK_ResourceRowResource">
+      <End Role="Resources" EntitySet="Resources" />
+      <End Role="RequestReservationResources" EntitySet="RequestReservationResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestReservation" Association="DBModel.FK_RequestReservation">
+      <End Role="Requests" EntitySet="Requests" />
+      <End Role="Reservations" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestRoomType" Association="DBModel.FK_RequestRoomType">
+      <End Role="RoomTypes" EntitySet="RoomTypes" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReservationUser" Association="DBModel.FK_ReservationUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reservations" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomTypeRoom" Association="DBModel.FK_RoomTypeRoom">
+      <End Role="RoomTypes" EntitySet="RoomTypes" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUserRole" Association="DBModel.FK_UserUserRole">
+      <End Role="UserRoles" EntitySet="UserRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ChangeLogs">
+    <Key>
+      <PropertyRef Name="ChangeLogId" />
+    </Key>
+    <Property Name="ChangeLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostInfo" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ChangeDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="DBModel.FK_RequestCity" FromRole="Cities" ToRole="Requests" />
+    <NavigationProperty Name="Rooms" Relationship="DBModel.FK_RoomCity" FromRole="Cities" ToRole="Rooms" />
+  </EntityType>
+  <EntityType Name="RequestReservationResources">
+    <Key>
+      <PropertyRef Name="RequestReservationResourcesId" />
+    </Key>
+    <Property Name="RequestReservationResourcesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Request_RequestId" Type="Int32" Nullable="false" />
+    <Property Name="Resource_ResourceId" Type="Int32" Nullable="false" />
+    <Property Name="Reservation_ReservationId" Type="Int32" />
+    <Property Name="ResourceQuantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Requests" Relationship="DBModel.FK_RequestReservationResources_Requests" FromRole="RequestReservationResources" ToRole="Requests" />
+    <NavigationProperty Name="Reservations" Relationship="DBModel.FK_RequestReservationResources_Reservations" FromRole="RequestReservationResources" ToRole="Reservations" />
+    <NavigationProperty Name="Requests1" Relationship="DBModel.FK_RequestResourceRow" FromRole="RequestReservationResources" ToRole="Requests" />
+    <NavigationProperty Name="Resources" Relationship="DBModel.FK_ResourceRowResource" FromRole="RequestReservationResources" ToRole="Resources" />
+  </EntityType>
+  <EntityType Name="Requests">
+    <Key>
+      <PropertyRef Name="RequestId" />
+    </Key>
+    <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomType_RoomTypeId" Type="Int32" Nullable="false" />
+    <Property Name="City_CityId" Type="Int32" Nullable="false" />
+    <Property Name="RequestTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="QuantityPersons" Type="Int32" Nullable="false" />
+    <Property Name="SizeArea" Type="Int32" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Reserved" Type="Boolean" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Cities" Relationship="DBModel.FK_RequestCity" FromRole="Requests" ToRole="Cities" />
+    <NavigationProperty Name="RequestReservationResources" Relationship="DBModel.FK_RequestReservationResources_Requests" FromRole="Requests" ToRole="RequestReservationResources" />
+    <NavigationProperty Name="RequestReservationResources1" Relationship="DBModel.FK_RequestResourceRow" FromRole="Requests" ToRole="RequestReservationResources" />
+    <NavigationProperty Name="Reservations" Relationship="DBModel.FK_RequestReservation" FromRole="Requests" ToRole="Reservations" />
+    <NavigationProperty Name="RoomTypes" Relationship="DBModel.FK_RequestRoomType" FromRole="Requests" ToRole="RoomTypes" />
+  </EntityType>
+  <EntityType Name="Reservations">
+    <Key>
+      <PropertyRef Name="ReservationId" />
+    </Key>
+    <Property Name="ReservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Request_RequestId" Type="Int32" Nullable="false" />
+    <Property Name="User_CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="User_HandlerId" Type="Int32" Nullable="false" />
+    <Property Name="Room_RoomId" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="RequestReservationResources" Relationship="DBModel.FK_RequestReservationResources_Reservations" FromRole="Reservations" ToRole="RequestReservationResources" />
+    <NavigationProperty Name="Requests" Relationship="DBModel.FK_RequestReservation" FromRole="Reservations" ToRole="Requests" />
+    <NavigationProperty Name="Users" Relationship="DBModel.FK_ReservationUser" FromRole="Reservations" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Resources">
+    <Key>
+      <PropertyRef Name="ResourceId" />
+    </Key>
+    <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <Property Name="ResourceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="RequestReservationResources" Relationship="DBModel.FK_ResourceRowResource" FromRole="Resources" ToRole="RequestReservationResources" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="RoomId" />
+    </Key>
+    <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomTypeRoomTypeId" Type="Int32" Nullable="false" />
+    <Property Name="City_CityId" Type="Int32" Nullable="false" />
+    <Property Name="AreaSize" Type="Int32" Nullable="false" />
+    <Property Name="StreetAddress" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="PreparationTime" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cities" Relationship="DBModel.FK_RoomCity" FromRole="Rooms" ToRole="Cities" />
+    <NavigationProperty Name="RoomTypes" Relationship="DBModel.FK_RoomTypeRoom" FromRole="Rooms" ToRole="RoomTypes" />
+  </EntityType>
+  <EntityType Name="RoomTypes">
+    <Key>
+      <PropertyRef Name="RoomTypeId" />
+    </Key>
+    <Property Name="RoomTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="Requests" Relationship="DBModel.FK_RequestRoomType" FromRole="RoomTypes" ToRole="Requests" />
+    <NavigationProperty Name="Rooms" Relationship="DBModel.FK_RoomTypeRoom" FromRole="RoomTypes" ToRole="Rooms" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="UserRoleId" />
+    </Key>
+    <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserRole" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="DBModel.FK_UserUserRole" FromRole="UserRoles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserRole_UserRoleId" Type="Int32" Nullable="false" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <Property Name="UserRoleId" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TelNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Reservations" Relationship="DBModel.FK_ReservationUser" FromRole="Users" ToRole="Reservations" />
+    <NavigationProperty Name="UserRoles" Relationship="DBModel.FK_UserUserRole" FromRole="Users" ToRole="UserRoles" />
+  </EntityType>
+  <Association Name="FK_RequestCity">
+    <End Type="DBModel.Cities" Role="Cities" Multiplicity="1" />
+    <End Type="DBModel.Requests" Role="Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="City_CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomCity">
+    <End Type="DBModel.Cities" Role="Cities" Multiplicity="1" />
+    <End Type="DBModel.Rooms" Role="Rooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="City_CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestReservationResources_Requests">
+    <End Type="DBModel.Requests" Role="Requests" Multiplicity="1" />
+    <End Type="DBModel.RequestReservationResources" Role="RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requests">
+        <PropertyRef Name="RequestId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Request_RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestReservationResources_Reservations">
+    <End Type="DBModel.Reservations" Role="Reservations" Multiplicity="0..1" />
+    <End Type="DBModel.RequestReservationResources" Role="RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reservations">
+        <PropertyRef Name="ReservationId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Reservation_ReservationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestResourceRow">
+    <End Type="DBModel.Requests" Role="Requests" Multiplicity="1" />
+    <End Type="DBModel.RequestReservationResources" Role="RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requests">
+        <PropertyRef Name="RequestId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Request_RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ResourceRowResource">
+    <End Type="DBModel.Resources" Role="Resources" Multiplicity="1" />
+    <End Type="DBModel.RequestReservationResources" Role="RequestReservationResources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Resources">
+        <PropertyRef Name="ResourceId" />
+      </Principal>
+      <Dependent Role="RequestReservationResources">
+        <PropertyRef Name="Resource_ResourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestReservation">
+    <End Type="DBModel.Requests" Role="Requests" Multiplicity="1" />
+    <End Type="DBModel.Reservations" Role="Reservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requests">
+        <PropertyRef Name="RequestId" />
+      </Principal>
+      <Dependent Role="Reservations">
+        <PropertyRef Name="Request_RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestRoomType">
+    <End Type="DBModel.RoomTypes" Role="RoomTypes" Multiplicity="1" />
+    <End Type="DBModel.Requests" Role="Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoomTypes">
+        <PropertyRef Name="RoomTypeId" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="RoomType_RoomTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReservationUser">
+    <End Type="DBModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="DBModel.Reservations" Role="Reservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Reservations">
+        <PropertyRef Name="User_CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomTypeRoom">
+    <End Type="DBModel.RoomTypes" Role="RoomTypes" Multiplicity="1" />
+    <End Type="DBModel.Rooms" Role="Rooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoomTypes">
+        <PropertyRef Name="RoomTypeId" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="RoomTypeRoomTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUserRole">
+    <End Type="DBModel.UserRoles" Role="UserRoles" Multiplicity="1" />
+    <End Type="DBModel.Users" Role="Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRoles">
+        <PropertyRef Name="UserRoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="UserRole_UserRoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6565e2235dc54b75834847ae15c8164d" Name="Diagram1" ZoomLevel="86" >
+        <EntityTypeShape EntityType="DBModel.ChangeLogs" Width="2.125" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBModel.Cities" Width="2.125" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="DBModel.RequestReservationResources" Width="2.125" PointX="11.25" PointY="5.125" />
+        <EntityTypeShape EntityType="DBModel.Requests" Width="2.125" PointX="6" PointY="4.5" />
+        <EntityTypeShape EntityType="DBModel.Reservations" Width="2.125" PointX="8.25" PointY="4.875" />
+        <EntityTypeShape EntityType="DBModel.Resources" Width="2.125" PointX="8.25" PointY="1.125" />
+        <EntityTypeShape EntityType="DBModel.Rooms" Width="2.125" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="DBModel.RoomTypes" Width="2.125" PointX="3.75" PointY="1.5" />
+        <EntityTypeShape EntityType="DBModel.sysdiagrams" Width="2.125" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DBModel.UserRoles" Width="2.125" PointX="3.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DBModel.Users" Width="2.125" PointX="6" PointY="9.625" />
+        <AssociationConnector Association="DBModel.FK_RequestCity" />
+        <AssociationConnector Association="DBModel.FK_RoomCity" />
+        <AssociationConnector Association="DBModel.FK_RequestReservationResources_Requests" />
+        <AssociationConnector Association="DBModel.FK_RequestReservationResources_Reservations" />
+        <AssociationConnector Association="DBModel.FK_RequestResourceRow" />
+        <AssociationConnector Association="DBModel.FK_ResourceRowResource" />
+        <AssociationConnector Association="DBModel.FK_RequestReservation" />
+        <AssociationConnector Association="DBModel.FK_RequestRoomType" />
+        <AssociationConnector Association="DBModel.FK_ReservationUser" />
+        <AssociationConnector Association="DBModel.FK_RoomTypeRoom" />
+        <AssociationConnector Association="DBModel.FK_UserUserRole" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
